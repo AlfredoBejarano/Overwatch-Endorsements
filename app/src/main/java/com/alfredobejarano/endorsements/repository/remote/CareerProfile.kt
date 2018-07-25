@@ -42,7 +42,7 @@ class CareerProfile {
         }
 
         /**
-         * Function that returns the HTML code for the career profile page.
+         * Function that returns the HTML code for the career profile page as a Document.
          * @param platform The platform that the player is playing on.
          * @param userName The player BattleTag, Gamertag or PSN ID.
          * @return Jsoup document class containing the HTML source code of the retrieved page.
