@@ -1,5 +1,7 @@
 package com.alfredobejarano.endorsements.source
 
+import com.alfredobejarano.endorsements.repository.remote.CareerProfile
+import com.alfredobejarano.endorsements.repository.remote.Platforms
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4

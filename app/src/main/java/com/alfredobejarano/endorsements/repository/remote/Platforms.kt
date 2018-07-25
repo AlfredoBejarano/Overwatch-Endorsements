@@ -1,4 +1,4 @@
-package com.alfredobejarano.endorsements.source
+package com.alfredobejarano.endorsements.repository.remote
 
 /**
  * Enum class that eases the way to build a career profile URL.

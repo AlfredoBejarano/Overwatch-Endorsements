@@ -1,4 +1,4 @@
-package com.alfredobejarano.endorsements.source
+package com.alfredobejarano.endorsements.repository.remote
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document

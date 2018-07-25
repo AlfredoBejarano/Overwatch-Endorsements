@@ -3,8 +3,8 @@ package com.alfredobejarano.endorsements.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.view.View
-import com.alfredobejarano.endorsements.source.CareerProfile
-import com.alfredobejarano.endorsements.source.Platforms
+import com.alfredobejarano.endorsements.repository.remote.CareerProfile
+import com.alfredobejarano.endorsements.repository.remote.Platforms
 import org.jsoup.nodes.Element
 import kotlin.concurrent.thread
 

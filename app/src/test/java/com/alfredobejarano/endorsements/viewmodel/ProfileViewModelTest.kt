@@ -1,6 +1,6 @@
 package com.alfredobejarano.endorsements.viewmodel
 
-import com.alfredobejarano.endorsements.source.Platforms
+import com.alfredobejarano.endorsements.repository.remote.Platforms
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
