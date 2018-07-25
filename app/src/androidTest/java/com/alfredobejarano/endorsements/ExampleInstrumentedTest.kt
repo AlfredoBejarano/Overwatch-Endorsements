@@ -1,4 +1,4 @@
-package com.alfredobejarano.endorsments
+package com.alfredobejarano.endorsements
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
