@@ -3,6 +3,7 @@ package com.alfredobejarano.endorsements.repository.remote
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.net.HttpURLConnection
+import java.net.UnknownHostException
 import java.util.*
 
 /**
@@ -50,18 +51,23 @@ class CareerProfile {
         fun getProfileHTMLCode(platform: Platforms, userName: String): Document? {
             // Retrieve the career profile URl using the buildProfileURL() function.
             val profileURL = buildProfileURL(platform, userName)
-            // Establish the details for the Jsoup connection.
-            val connection = Jsoup.connect(profileURL)
-                    .userAgent(USER_AGENT)
-                    .timeout(TIMEOUT_MILLISECONDS)
-            // Execute said connection.
-            val response = connection.execute()
-            // Check if the connection HTTP status code is a 200 status code.
-            return if (response?.statusCode() == HttpURLConnection.HTTP_OK) {
-                // Get the document of whatever HTML spaghetti code was retrieved.
-                connection.get()
-            } else {
-                // If something is going wrong with the Overwatch page, return a null document.
+            return try {
+                // Establish the details for the Jsoup connection.
+                val connection = Jsoup.connect(profileURL)
+                        .userAgent(USER_AGENT)
+                        .timeout(TIMEOUT_MILLISECONDS)
+                // Execute said connection.
+                val response = connection.execute()
+                // Check if the connection HTTP status code is a 200 status code.
+                if (response?.statusCode() == HttpURLConnection.HTTP_OK) {
+                    // Get the document of whatever HTML spaghetti code was retrieved.
+                    connection.get()
+                } else {
+                    // If something is going wrong with the Overwatch page, return a null document.
+                    null
+                }
+            } catch (e: UnknownHostException) {
+                // Return a null document if there is no internet access.
                 null
             }
         }

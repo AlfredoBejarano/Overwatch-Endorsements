@@ -41,7 +41,7 @@ class CareerProfileTest {
     fun getProfileHTMLCodeTest() {
         // Assert that a requested profile gets a Document.
         assert(CareerProfile.getProfileHTMLCode(Platforms.PC, testPCPlayer) != null)
-        // Also assert that an non-existing profile returns a Document (the player not found page).
+        // Also assert that an non-existing profile returns a Document (the player not found page HTML code).
         assert(CareerProfile.getProfileHTMLCode(Platforms.PSN, testXBLPLayer) != null)
     }
 }
