@@ -3,8 +3,10 @@ package com.alfredobejarano.endorsements.repository.local
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import com.alfredobejarano.endorsements.model.PlayerProfile
+import com.alfredobejarano.endorsements.repository.local.typeconverters.PlatformsTypeConverter
 
 /**
  * Singleton class that allows access to the app room database.
@@ -12,6 +14,7 @@ import com.alfredobejarano.endorsements.model.PlayerProfile
  * @since Jul 24th, 2018 - 10:42 PM
  */
 @Database(entities = [PlayerProfile::class], version = 1, exportSchema = false)
+@TypeConverters(PlatformsTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     /**
      * Function that allows access too the player profile dao.
