@@ -40,7 +40,7 @@ class ProfileViewModel : ViewModel() {
      * @param platform The platform that the player is playing on.
      * @param userName The player BattleTag, Gamertag or PSN ID.
      */
-    fun getProfileData(platform: Platforms, userName: CharSequence?) = thread(start = true, name = "${this::class.java.name} thread") {
+    fun getProfileData(platform: Platforms, userName: CharSequence?) = thread(start = true) {
         // Notify that the ViewModel is performing an operation.
         loading.postValue(View.VISIBLE)
         // Get the document using the given profile data.
@@ -50,9 +50,11 @@ class ProfileViewModel : ViewModel() {
             // Get the player statistics div element from the document.
             it.getElementsByClass(PLAYER_STATISTICS_ELEMENT_CLASS)?.first()?.let {
                 // Extract the endorsement level.
-                endorsementLevel.postValue(it.getElementsByClass(ENDORSEMENT_LEVEL_ELEMENT_CLASS).first().text())
+                val level = it.getElementsByClass(ENDORSEMENT_LEVEL_ELEMENT_CLASS).first().text()
+                endorsementLevel.postValue(level)
                 // Post the value of the player profile icon from the document.
-                playerIcon.postValue(document.getElementsByClass(PLAYER_ICON_ELEMENT_CLASS).first().attr(IMG_SRC_ATTRIBUTE))
+                val iconURL = document.getElementsByClass(PLAYER_ICON_ELEMENT_CLASS).first().attr(IMG_SRC_ATTRIBUTE)
+                playerIcon.postValue(iconURL)
                 // Extract the values for different endorsements.
                 shotCaller.postValue(getEndorsement(it, Endorsements.SHOTCALLER))
                 goodTeammate.postValue(getEndorsement(it, Endorsements.TEAMMATE))

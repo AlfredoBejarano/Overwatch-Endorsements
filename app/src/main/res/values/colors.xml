@@ -3,9 +3,9 @@
     <color name="colorPrimary">#2f3543</color>
     <color name="colorPrimary52">#842f3543</color>
     <color name="colorPrimaryDark">#232835</color>
-    <color name="colorAccent">#F7931E</color>
-    <color name="colorAccent52">#84F7931E</color>
-    <color name="colorRed">#F44336</color>
-    <color name="colorGreen">#4CAF50</color>
-    <color name="colorPressed">#00a5e2</color>
+    <color name="colorAccent">#f7931e</color>
+    <color name="colorAccent52">#84f7931e</color>
+    <color name="colorGoodTeammate">#C81AF5</color>
+    <color name="colorSportsmanship">#40CE44</color>
+    <color name="colorShotcaller">#F19512</color>
 </resources>

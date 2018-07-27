@@ -8,10 +8,15 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.alfredobejarano.endorsements.databinding.ActivityEndorsementsBinding
+import com.alfredobejarano.endorsements.model.PlayerProfile
+import com.alfredobejarano.endorsements.repository.local.AppDatabase
+import com.alfredobejarano.endorsements.repository.remote.Platforms
 import com.alfredobejarano.endorsements.viewmodel.ProfileViewModel
 import com.alfredobejarano.endorsements.viewmodel.StorageViewModel
 import com.facebook.drawee.backends.pipeline.Fresco
 import kotlinx.android.synthetic.main.activity_endorsements.*
+import kotlinx.android.synthetic.main.fragment_battletag.*
+import kotlin.concurrent.thread
 
 /**
  * Activity for the app that will serve as the lifecycle
@@ -62,11 +67,11 @@ class EndorsementsActivity : AppCompatActivity() {
         // Display a Toast when an error happens.
         careerVM.status.observe(this, Observer {
             when (it) {
-                ProfileViewModel.Status.STATUS_OK -> Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show()
-                // Display that the player profile page was not found.
+                ProfileViewModel.Status.STATUS_OK -> setFragment(CareerFragment())
+            // Display that the player profile page was not found.
                 ProfileViewModel.Status.STATUS_PROFILE_NOT_FOUND ->
                     Toast.makeText(this, R.string.profile_not_found, Toast.LENGTH_SHORT).show()
-                // Display that the overwatch page is down.
+            // Display that the overwatch page is down.
                 ProfileViewModel.Status.STATUS_BLIZZARD_DOWN ->
                     Toast.makeText(this, R.string.cannot_connect_to_blizzard_servers, Toast.LENGTH_SHORT).show()
             }
