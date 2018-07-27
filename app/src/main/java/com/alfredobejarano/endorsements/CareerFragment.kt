@@ -33,7 +33,8 @@ class CareerFragment : Fragment() {
         val careerVM = ViewModelProviders.of(activity as FragmentActivity)[ProfileViewModel::class.java]
         battletag?.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
-                careerVM.getProfileData(Platforms.PC, (v as EditText?)?.text)
+                careerVM.getProfileData(platform_selector?.selectedPlatform
+                        ?: Platforms.PC, (v as EditText?)?.text)
                 return@setOnEditorActionListener true
             } else {
                 return@setOnEditorActionListener false
