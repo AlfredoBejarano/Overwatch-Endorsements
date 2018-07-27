@@ -77,6 +77,7 @@ class EndorsementsActivity : AppCompatActivity() {
             // Perform the transaction.
             supportFragmentManager
                     .beginTransaction()
+                    .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                     .replace(R.id.container, fragment, FRAGMENT_TAG)
                     .commit()
         }
