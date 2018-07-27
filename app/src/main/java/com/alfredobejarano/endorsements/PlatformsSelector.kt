@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.view_platform_selector.view.*
 
 class PlatformsSelector(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
     var selectedPlatform = Platforms.PC
+    var listener: OnPlatformSelectedListener? = null
     private val root: View = LayoutInflater.from(context).inflate(R.layout.view_platform_selector, this, true)
     private val selector: LinearLayout = root.selector
 
@@ -32,9 +33,14 @@ class PlatformsSelector(context: Context?, attrs: AttributeSet?) : LinearLayout(
                     R.id.xbl -> Platforms.XBL
                     else -> Platforms.PSN
                 }
+                listener?.onPlatformSelected(selectedPlatform)
             } else {
                 child.isChecked = false
             }
         }
+    }
+
+    interface OnPlatformSelectedListener {
+        fun onPlatformSelected(platform: Platforms)
     }
 }
