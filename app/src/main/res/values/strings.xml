@@ -4,4 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="write_your_bt">Your battletag (Ej. Beji#11990)</string>
+    <string name="pc">PC</string>
+    <string name="xb">XB</string>
+    <string name="ps4">PS4</string>
 </resources>

@@ -21,13 +21,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:src="@drawable/overwatch"
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/overwatch"
         app:layout_constraintBottom_toTopOf="@+id/battletag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <com.alfredobejarano.endorsements.PlatformsSelector
+        android:id="@+id/platform_selector"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/battletag" />
 </android.support.constraint.ConstraintLayout>
