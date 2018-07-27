@@ -7,4 +7,6 @@
     <string name="pc">PC</string>
     <string name="xb">XB</string>
     <string name="ps4">PS4</string>
+    <string name="profile_not_found">Player profile not found</string>
+    <string name="cannot_connect_to_blizzard_servers">Somehing went wrong while connecting to blizzard servers</string>
 </resources>
