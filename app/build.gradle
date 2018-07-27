@@ -43,9 +43,12 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     // Room persistence library.
     implementation 'android.arch.persistence.room:runtime:1.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
     kapt 'android.arch.persistence.room:compiler:1.1.1'
     // JSOUP
     implementation 'org.jsoup:jsoup:1.11.3'
+    // Facebook Fresco
+    implementation 'com.facebook.fresco:fresco:1.10.0'
     // JUnit 4
     testImplementation 'junit:junit:4.12'
     // Android Runner
