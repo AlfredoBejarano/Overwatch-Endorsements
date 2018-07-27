@@ -45,7 +45,7 @@ class ProfileViewModel : ViewModel() {
         loading.postValue(View.VISIBLE)
         // Get the document using the given profile data.
         val document = CareerProfile.getProfileHTMLCode(platform, userName?.toString() ?: "")
-        // If the document is not null, it means the paghe got a 200 HTTP code response.
+        // If the document is not null, it means the page got a 200 HTTP code response.
         document?.let {
             // Get the player statistics div element from the document.
             it.getElementsByClass(PLAYER_STATISTICS_ELEMENT_CLASS)?.first()?.let {
