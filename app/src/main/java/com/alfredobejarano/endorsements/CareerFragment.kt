@@ -31,6 +31,15 @@ class CareerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val careerVM = ViewModelProviders.of(activity as FragmentActivity)[ProfileViewModel::class.java]
+        platform_selector?.listener = object : PlatformsSelector.OnPlatformSelectedListener {
+            override fun onPlatformSelected(platform: Platforms) {
+                battletag?.setHint(when (platform) {
+                    Platforms.PC -> R.string.batttletag
+                    Platforms.XBL -> R.string.gamertag
+                    Platforms.PSN -> R.string.psnId
+                })
+            }
+        }
         battletag?.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
                 careerVM.getProfileData(platform_selector?.selectedPlatform

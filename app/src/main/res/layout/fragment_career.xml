@@ -9,15 +9,15 @@
 
     <EditText
         android:id="@+id/battletag"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/write_your_bt"
+        android:hint="@string/batttletag"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:lines="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/logo"
+        app:layout_constraintStart_toStartOf="@id/logo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
