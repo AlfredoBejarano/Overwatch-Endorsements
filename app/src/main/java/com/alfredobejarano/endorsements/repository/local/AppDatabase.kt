@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
+import com.alfredobejarano.endorsements.BuildConfig
 import com.alfredobejarano.endorsements.model.PlayerProfile
 import com.alfredobejarano.endorsements.repository.local.typeconverters.PlatformsTypeConverter
 
@@ -41,7 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
          * Creates the database.
          * @param context The context creating this singleton instance.
          */
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(context, AppDatabase::class.java, "")
+        private fun buildDatabase(context: Context) = Room.databaseBuilder(context, AppDatabase::class.java, "${BuildConfig.BUILD_TYPE}_DB")
                 .fallbackToDestructiveMigration()
                 .build()
     }
