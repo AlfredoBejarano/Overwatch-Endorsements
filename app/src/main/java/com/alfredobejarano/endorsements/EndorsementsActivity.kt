@@ -54,7 +54,7 @@ class EndorsementsActivity : AppCompatActivity() {
                 careerVM.getProfileData(it.platform, it.userName)
             } ?: run {
                 // Set he fragment that will ask for a username.
-                setFragment(CareerFragment())
+                setFragment(BattletagFragment())
                 // Hide the loading view if there isn't any session stored (null).
                 loading?.visibility = View.GONE
             }

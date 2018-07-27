@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_career.*
  * A simple [Fragment] subclass.
  *
  */
-class CareerFragment : Fragment() {
+class BattletagFragment : Fragment() {
     /**
      * Create this fragment content view.
      * @param inflater The defined layout inflater for this fragment.
