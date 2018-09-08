@@ -29,10 +29,10 @@ class ProfileViewModel : ViewModel() {
 
     val loading: MutableLiveData<Int> = MutableLiveData()
     val status: MutableLiveData<Status> = MutableLiveData()
+    val shotCaller: MutableLiveData<Int> = MutableLiveData()
+    val goodTeammate: MutableLiveData<Int> = MutableLiveData()
+    val sportsmanship: MutableLiveData<Int> = MutableLiveData()
     val playerIcon: MutableLiveData<String> = MutableLiveData()
-    val shotCaller: MutableLiveData<Double> = MutableLiveData()
-    val goodTeammate: MutableLiveData<Double> = MutableLiveData()
-    val sportsmanship: MutableLiveData<Double> = MutableLiveData()
     val endorsementLevel: MutableLiveData<String> = MutableLiveData()
 
     /**
@@ -40,7 +40,7 @@ class ProfileViewModel : ViewModel() {
      * @param platform The platform that the player is playing on.
      * @param userName The player BattleTag, Gamertag or PSN ID.
      */
-    fun getProfileData(platform: Platforms, userName: CharSequence?) = thread(start = true) {
+    fun getProfileData(platform: Platforms, userName: CharSequence?, store: Boolean) = thread(start = true) {
         // Notify that the ViewModel is performing an operation.
         loading.postValue(View.VISIBLE)
         // Get the document using the given profile data.
@@ -60,7 +60,7 @@ class ProfileViewModel : ViewModel() {
                 goodTeammate.postValue(getEndorsement(it, Endorsements.TEAMMATE))
                 sportsmanship.postValue(getEndorsement(it, Endorsements.SPORTSMANSHIP))
                 // Report the operation status.
-                status.postValue(Status.STATUS_OK)
+                status.postValue(if (store) Status.STATUS_OK_AND_STORE else Status.STATUS_OK)
             } ?: run {
                 // If the player statistics element is not found within the document, it means no player was found.
                 status.postValue(Status.STATUS_PROFILE_NOT_FOUND)
@@ -77,7 +77,7 @@ class ProfileViewModel : ViewModel() {
      * @param htmlElement Player statistics element extracted from its Career profile page.
      * @param endorsement The expected endorsement to extract its value for.
      */
-    private fun getEndorsement(htmlElement: Element, endorsement: Endorsements) : Double {
+    private fun getEndorsement(htmlElement: Element, endorsement: Endorsements): Int {
         // Build the wanted endorsement class name.
         val endorsementClassName = String.format(ENDORSEMENT_ELEMENT_CLASS, endorsement.name.toLowerCase())
         // Get the endorsement element.
@@ -85,7 +85,7 @@ class ProfileViewModel : ViewModel() {
         // Extract its decimal value.
         val endorsementPercentile = endorsementElement.attr(ENDORSEMENT_PERCENTILE_ATTRIBUTE)
         // Parse it into a double.
-        return endorsementPercentile.toDouble()
+        return (endorsementPercentile.toDouble() * 100).toInt()
     }
 
     /**
@@ -114,6 +114,10 @@ class ProfileViewModel : ViewModel() {
          * Status that defines the request was made successfully.
          */
         STATUS_OK,
+        /**
+         * Status that defines the request succeeded and has to be stored.
+         */
+        STATUS_OK_AND_STORE,
         /**
          * Status for when the blizzard page is not available.
          */

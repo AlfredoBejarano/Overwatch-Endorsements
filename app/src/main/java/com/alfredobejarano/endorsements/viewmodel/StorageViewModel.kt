@@ -25,4 +25,14 @@ class StorageViewModel(application: Application) : AndroidViewModel(application)
         // Set the retrieved session as the value of the session property.
         session.postValue(localSession)
     }
+
+    /**
+     * Stores a player profile object into the local storage database.
+     */
+    fun storePlayerProfile(playerProfile: PlayerProfile) = thread(start = true,
+            name = "${this.javaClass.name} thread") {
+        AppDatabase.getInstance(getApplication())
+                .playerProfileDao()
+                .storePlayerProfile(playerProfile)
+    }
 }
