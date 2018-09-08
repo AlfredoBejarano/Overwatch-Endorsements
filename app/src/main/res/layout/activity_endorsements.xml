@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:alpha="0.90"
-            android:visibility="@{ViewModel.loading}"
+            android:visibility="@{safeUnbox(ViewModel.loading)}"
             android:background="?android:attr/windowBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

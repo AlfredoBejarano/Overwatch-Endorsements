@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="playerProfile"
+            type="com.alfredobejarano.endorsements.model.PlayerProfile" />
+
+        <variable
             name="viewModel"
             type="com.alfredobejarano.endorsements.viewmodel.ProfileViewModel" />
     </data>
@@ -20,6 +24,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".CareerFragment">
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="@{playerProfile.userName}"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@id/player_icon"
+                app:layout_constraintEnd_toEndOf="@id/player_icon"
+                app:layout_constraintStart_toStartOf="@id/player_icon"
+                tools:text="Beji#11990" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/player_icon"
@@ -36,29 +52,8 @@
                 android:id="@+id/level_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/level"
-                app:layout_constraintEnd_toStartOf="@+id/divider"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/player_icon" />
-
-            <TextView
-                android:id="@+id/endorsements_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/endorsements"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/divider"
-                app:layout_constraintTop_toBottomOf="@+id/player_icon" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/colorAccent52"
-                app:layout_constraintBottom_toBottomOf="@id/level"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/player_icon" />
@@ -73,26 +68,10 @@
                 android:text="@{viewModel.endorsementLevel}"
                 android:textColor="@color/colorAccent"
                 android:textSize="32sp"
-                app:layout_constraintEnd_toStartOf="@+id/divider"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/level_label"
                 tools:text="3" />
-
-            <TextView
-                android:id="@+id/endorsements"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableEnd="@drawable/ic_help"
-                android:drawablePadding="4dp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:textColor="@color/colorAccent"
-                android:textSize="32sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/divider"
-                app:layout_constraintTop_toBottomOf="@+id/endorsements_label"
-                tools:text="121" />
 
             <LinearLayout
                 android:layout_width="0dp"
