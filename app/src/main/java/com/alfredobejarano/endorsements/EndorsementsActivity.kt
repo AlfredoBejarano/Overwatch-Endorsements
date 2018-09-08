@@ -3,20 +3,15 @@ package com.alfredobejarano.endorsements
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Toast
 import com.alfredobejarano.endorsements.databinding.ActivityEndorsementsBinding
-import com.alfredobejarano.endorsements.model.PlayerProfile
-import com.alfredobejarano.endorsements.repository.local.AppDatabase
-import com.alfredobejarano.endorsements.repository.remote.Platforms
 import com.alfredobejarano.endorsements.viewmodel.ProfileViewModel
 import com.alfredobejarano.endorsements.viewmodel.StorageViewModel
 import com.facebook.drawee.backends.pipeline.Fresco
 import kotlinx.android.synthetic.main.activity_endorsements.*
-import kotlinx.android.synthetic.main.fragment_battletag.*
-import kotlin.concurrent.thread
 
 /**
  * Activity for the app that will serve as the lifecycle
@@ -30,6 +25,11 @@ class EndorsementsActivity : AppCompatActivity() {
         const val FRAGMENT_TAG = "navigationFragment"
     }
 
+    private lateinit var mStorageViewModel: StorageViewModel
+    private lateinit var mProfileViewModel: ProfileViewModel
+    private lateinit var mBinding: ActivityEndorsementsBinding
+
+
     /**
      * Attaches this activity to the application object
      * and assigns a ViewModel to this activity DataBinding.
@@ -40,23 +40,56 @@ class EndorsementsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Initialize Fresco
         Fresco.initialize(this)
+        // Initialize the DataBinding for this view.
+        setupDataBinding()
+        // Retrieve the local stored session
+        mStorageViewModel.getStoredProfile()
+    }
+
+    /**
+     * Initializes the mBinding property for this activity and sets
+     * the variables for its binding and the contents for this activity
+     */
+    private fun setupDataBinding() {
         // Retrieve the DataBinding object for this activity layout.
-        val binding = ActivityEndorsementsBinding.inflate(layoutInflater)
-        // Retrieve the CareerProfile ViewModel for this activity.
-        val careerVM = ViewModelProviders.of(this)[ProfileViewModel::class.java]
+        mBinding = ActivityEndorsementsBinding.inflate(layoutInflater)
+        // Set observables for the ViewModels.
+        setupViewModels()
         // Assign a ViewModel for the layout binding.
-        binding.viewModel = careerVM
+        mBinding.viewModel = mProfileViewModel
         // Set this activity as the LifecycleOwner for the binding.
-        binding.setLifecycleOwner(this)
+        mBinding.setLifecycleOwner(this)
         // Set this activity content view as the binding root.
-        setContentView(binding.root)
+        setContentView(mBinding.root)
+    }
+
+    /**
+     * Initializes the value for this activity ViewModel properties and assigns Observables to them.
+     */
+    private fun setupViewModels() {
+        // Retrieve the CareerProfile ViewModel for this activity.
+        mProfileViewModel = ViewModelProviders.of(this)[ProfileViewModel::class.java]
+        // Display a Toast when an error happens.
+        mProfileViewModel.status.observe(this, Observer {
+            when (it) {
+                // Display that the player profile page was not found.
+                ProfileViewModel.Status.STATUS_PROFILE_NOT_FOUND ->
+                    displayMessage(R.string.profile_not_found)
+                // Display that the overwatch page is down.
+                ProfileViewModel.Status.STATUS_BLIZZARD_DOWN ->
+                    displayMessage(R.string.cannot_connect_to_blizzard_servers)
+                // If the profile request passes, display the career fragment.
+                else -> setFragment(CareerFragment())
+            }
+        })
+
         // Get the local session ViewModel.
-        val storageVM = ViewModelProviders.of(this)[StorageViewModel::class.java]
+        mStorageViewModel = ViewModelProviders.of(this)[StorageViewModel::class.java]
         // Listen to changes in the session property in the ViewModel.
-        storageVM.session.observe(this, Observer {
-            it?.let {
+        mStorageViewModel.session.observe(this, Observer { playerProfile ->
+            playerProfile?.let {
                 // Get the local session data if there is one stored (not null).
-                careerVM.getProfileData(it.platform, it.userName)
+                mProfileViewModel.getProfileData(it.platform, it.userName, false)
             } ?: run {
                 // Set he fragment that will ask for a username.
                 setFragment(BattletagFragment())
@@ -64,20 +97,6 @@ class EndorsementsActivity : AppCompatActivity() {
                 loading?.visibility = View.GONE
             }
         })
-        // Display a Toast when an error happens.
-        careerVM.status.observe(this, Observer {
-            when (it) {
-                ProfileViewModel.Status.STATUS_OK -> setFragment(CareerFragment())
-            // Display that the player profile page was not found.
-                ProfileViewModel.Status.STATUS_PROFILE_NOT_FOUND ->
-                    Toast.makeText(this, R.string.profile_not_found, Toast.LENGTH_SHORT).show()
-            // Display that the overwatch page is down.
-                ProfileViewModel.Status.STATUS_BLIZZARD_DOWN ->
-                    Toast.makeText(this, R.string.cannot_connect_to_blizzard_servers, Toast.LENGTH_SHORT).show()
-            }
-        })
-        // Retrieve the local stored session
-        storageVM.getStoredProfile()
     }
 
     /**
@@ -100,4 +119,9 @@ class EndorsementsActivity : AppCompatActivity() {
                     .commit()
         }
     }
+
+    /**
+     * Displays a Snackbar showing a String from the resources as the message.
+     */
+    private fun displayMessage(@StringRes message: Int) = Unit
 }

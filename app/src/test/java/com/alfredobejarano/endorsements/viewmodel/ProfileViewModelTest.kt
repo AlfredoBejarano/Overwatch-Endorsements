@@ -46,6 +46,6 @@ class ProfileViewModelTest {
             assert(it != null)
         }
         // Retrieve the player profile data.
-        testViewModel.getProfileData(Platforms.PC, mTestPlayer)
+        testViewModel.getProfileData(Platforms.PC, mTestPlayer, false)
     }
 }
